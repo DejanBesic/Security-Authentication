@@ -1,11 +1,14 @@
 package com.bookingapp.agent.controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookingapp.agent.model.JwtUser;
@@ -22,15 +25,17 @@ public class TokenController {
         this.jwtGenerator = jwtGenerator;
     }
 
-    @PostMapping
-    public ResponseEntity<String> login(@RequestBody final JwtUser jwtUser) {    	
+    @CrossOrigin
+    @RequestMapping(produces="application/json", method=RequestMethod.POST)
+    public String login(@RequestBody final JwtUser jwtUser) {    	
     	if(!jwtUser.getUsername().equals("asd") || !jwtUser.getPassword().equals("asd")) {
-    		new ResponseEntity<>("Error, invalid username or password", HttpStatus.UNAUTHORIZED);
+    		return "Error, invalid username or password";
     	}
-        return new ResponseEntity<>(jwtGenerator.generate(jwtUser), HttpStatus.OK);
+        return jwtGenerator.generate(jwtUser);
     }
     
     @GetMapping
+    @CrossOrigin
     public String getData() {    
         return "asdasdasdasd";
     }

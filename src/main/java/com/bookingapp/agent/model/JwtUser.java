@@ -4,7 +4,7 @@ public class JwtUser {
 
 	private String username;
 	
-	private int id;
+	private long id;
 	
 	private String role;
 	
@@ -14,7 +14,7 @@ public class JwtUser {
 		
 	}
 
-	public JwtUser(String username, int id, String role, String password) {
+	public JwtUser(String username, long id, String role, String password) {
 		super();
 		this.username = username;
 		this.id = id;
@@ -30,11 +30,11 @@ public class JwtUser {
 		this.username = username;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

@@ -52,7 +52,7 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().disable()
+		http.cors().disable().antMatcher("http://localhost:8082/**")
 			.authorizeRequests().antMatchers("**/api/**").authenticated()
 			.and()
 			.exceptionHandling().authenticationEntryPoint(entryPoint);
