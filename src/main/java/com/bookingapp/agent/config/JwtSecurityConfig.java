@@ -11,8 +11,10 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.bookingapp.agent.security.JwtAuthenticationEntryPoint;
 import com.bookingapp.agent.security.JwtAuthenticationProvider;
@@ -34,6 +36,11 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
 		return new ProviderManager(Collections.singletonList(authenticationProvider));
 	}
 	
+//    @Bean
+//    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+//	
 	@Bean
 	public JwtAuthenticationTokenFilter authenticationTokenFilter(){
 		
@@ -45,16 +52,19 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable()
-			.authorizeRequests().antMatchers("**/rest/**").authenticated()
+		http.cors().disable()
+			.authorizeRequests().antMatchers("**/api/**").authenticated()
 			.and()
-			.exceptionHandling().authenticationEntryPoint(entryPoint)
-			.and()
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+			.exceptionHandling().authenticationEntryPoint(entryPoint);
 		
 		http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 		 
 		http.headers().cacheControl();
 	}
 
+//	 @Autowired
+//	    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//	        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+//	    }
+	
 }

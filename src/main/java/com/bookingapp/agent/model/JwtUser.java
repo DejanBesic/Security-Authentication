@@ -2,21 +2,24 @@ package com.bookingapp.agent.model;
 
 public class JwtUser {
 
-	public String username;
+	private String username;
 	
-	public long id;
+	private int id;
 	
-	public String role;
+	private String role;
+	
+	private String password;
 	
 	public JwtUser() {
 		
 	}
-	
-	public JwtUser(String username, long id, String role) {
+
+	public JwtUser(String username, int id, String role, String password) {
 		super();
 		this.username = username;
 		this.id = id;
 		this.role = role;
+		this.password = password;
 	}
 
 	public String getUsername() {
@@ -27,11 +30,11 @@ public class JwtUser {
 		this.username = username;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -42,6 +45,16 @@ public class JwtUser {
 	public void setRole(String role) {
 		this.role = role;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	
 
 
 }

@@ -16,20 +16,20 @@ public class JwtValidator {
 		
 		JwtUser jwtUser = null;
 		try {
-		Claims body = Jwts.parser()
+			Claims body = Jwts.parser()
 							.setSigningKey(secret)
 							.parseClaimsJws(token)
 							.getBody();
 		
-		jwtUser = new JwtUser(body.getSubject(), Long.parseLong((String)body.get("userId")), (String) body.get("role") );
-//		jwtUser.setUsername(body.getSubject());
-//		jwtUser.setId(Long.parseLong((String)body.get("userId")));
-//		jwtUser.setRole((String) body.get("role"));
+	//		jwtUser = new JwtUser(body.getSubject(), Long.parseLong((String)body.get("userId")), (String) body.get("role"), (String) body.get("password") );
+			jwtUser = new JwtUser(body.getSubject(), 123, "admin", (String) body.get("password") );
+	//		jwtUser.setUsername(body.getSubject());
+	//		jwtUser.setId(Long.parseLong((String)body.get("userId")));
+	//		jwtUser.setRole((String) body.get("role"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return jwtUser;		
+		return jwtUser;
 	}
-
 }
